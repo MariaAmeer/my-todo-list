@@ -20,9 +20,11 @@ const [input, setInput] = useState('')
 
 //create todo
 
-
+const [loading, setLoading] = useState(false);
 const createTodo = async (e) => {
+  
   e.preventDefault(e)
+  setLoading(true)
   if(input === ''){
     alert('Please enter a todo')
     return
@@ -31,6 +33,7 @@ const createTodo = async (e) => {
     text: input,
     completed: false,
   })
+  setLoading(false)
   setInput('')
 };
 
@@ -68,7 +71,7 @@ const deleteTodo = async (id) => {
     <div className={style.container}>
       <h3 className={style.heading}>Todo App</h3>
       <form onSubmit={createTodo}  className={style.form}>
-        <input value={input} onChange={(e) => setInput(e.target.value)} className={style.input} type="text" placeholder="Add Todo" />
+        <input value={input} onChange={(e) => setInput(e.target.value)} className={style.input} type="text" placeholder="Add Todo" disabled = {loading} />
         <button className={style.button}><AiOutlinePlus size={30}/></button>
       </form>
       <ul>
